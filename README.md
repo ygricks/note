@@ -9,6 +9,10 @@ npm install
 
 ## Running the app
 
+#### run database in container
+```bash
+docker compose up db -d
+```
 #### development
 ```bash
 npm run start
@@ -36,3 +40,9 @@ npm run test:e2e
 ```bash
 npm run test:cov
 ```
+
+## Description
+ - database: [postgres](https://www.postgresql.org/)
+ - orm: [mikroorm](https://mikro-orm.io/)
+ - rest-api: [nest](https://nestjs.com/)
+ - test: [jest](https://jestjs.io/)
