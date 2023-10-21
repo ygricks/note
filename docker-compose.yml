@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+    note_app:
+        build: .
+        ports:
+            - 3344:3344
+        env_file: .env
+        environment:
+            DB_HOST: note_postgres
+        depends_on:
+            - db
+        container_name: note_app
+        networks:
+            - local
+    db:
+        image: postgres:14.4
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: superpass
+            POSTGRES_DB: note_db
+        ports:
+            - 5490:5432
+        volumes:
+            - db-data:/tmp/note
+            - ./sql/:/docker-entrypoint-initdb.d
+        container_name: note_db
+        networks:
+            - local
+volumes:
+    db-data:
+networks:
+    local:
+        driver: bridge
