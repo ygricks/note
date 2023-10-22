@@ -5,12 +5,13 @@ import { NoteModule } from './note/note.module';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
+import databaseConfig from './config/database.config';
 
 @Module({
   imports: [
     NoteModule,
     ConfigModule.forRoot({
-      load: [configuration],
+      load: [configuration, databaseConfig],
     }),
     MikroOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -27,7 +28,6 @@ import configuration from './config/configuration';
         port: configService.get('database.port'),
         dbName: configService.get('database.name'),
       }),
-
     }),
   ],
   controllers: [AppController],
