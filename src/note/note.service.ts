@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { Note } from './entities/note.entity';
+import { Note } from './entities';
 import { EntityRepository } from '@mikro-orm/core';
 
 @Injectable()
