@@ -9,8 +9,8 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  @Get('/hope')
-  hope(): string {
-    return 'hope work';
+  @Get('/test')
+  test(): string {
+    return 'test work';
   }
 }
