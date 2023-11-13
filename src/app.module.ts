@@ -18,7 +18,6 @@ import databaseConfig from './config/database.config';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         entities: ['./dist/note/entities'],
-        // entities: [`${__dirname}/**/*.entity.{ts,js}`],
         entitiesTs: ['./src/note/entities'],
 
         type: 'postgresql',
