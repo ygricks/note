@@ -6,10 +6,12 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import databaseConfig from './config/database.config';
+import { PinModule } from './note/pin.module';
 
 @Module({
   imports: [
     NoteModule,
+    PinModule,
     ConfigModule.forRoot({
       load: [configuration, databaseConfig],
     }),

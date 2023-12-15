@@ -9,20 +9,22 @@ export class Pin {
   @Check({ expression: 'short >= 3' })
   short: string;
 
-  @Property({ length: 20 })
+  @Property({ length: 20, nullable: true })
   @Check({ expression: 'color >= 3' })
-  color: string;
+  color?: string;
 
-  @Property({ length: 200 })
+  @Property({ length: 200, nullable: true })
   @Check({ expression: 'message >= 3' })
-  message!: string;
+  message?: string;
 
   @Property({ columnType: 'timestamp', defaultRaw: `current_timestamp` })
   created_at?: Date;
 
-  constructor(short: string, color: string, message?: string) {
+  constructor(short: string, message?: string, color?: string) {
     this.short = short;
-    this.color = color;
+    if (color) {
+      this.color = color;
+    }
     if (message) {
       this.message = message;
     }

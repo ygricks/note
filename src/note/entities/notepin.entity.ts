@@ -1,13 +1,13 @@
-import { Entity, ManyToOne, PrimaryKeyType, Property } from '@mikro-orm/core';
+import { Entity, PrimaryKeyType, Property } from '@mikro-orm/core';
 import { Note } from './note.entity';
 import { Pin } from './pin.entity';
 
 @Entity({ tableName: 'notepin' })
 export class Notepin {
-  @ManyToOne({ primary: true, fieldName: 'note_id' })
+  @Property({ primary: true, fieldName: 'note_id' })
   note: Note;
 
-  @ManyToOne({ primary: true, fieldName: 'pin_id' })
+  @Property({ primary: true, fieldName: 'pin_id' })
   pin: Pin;
 
   @Property({ columnType: 'timestamp', defaultRaw: `current_timestamp` })

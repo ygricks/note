@@ -9,9 +9,9 @@ export class Note {
   @Check({ expression: 'short >= 3' })
   short!: string;
 
-  @Property({ length: 200 })
+  @Property({ length: 200, nullable: true })
   @Check({ expression: 'message >= 3' })
-  message!: string;
+  message: string;
 
   @Property({ columnType: 'timestamp', defaultRaw: `current_timestamp` })
   created_at?: Date;
