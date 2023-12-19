@@ -34,13 +34,12 @@ export class NoteController {
   }
 
   @Patch(':id')
-  @UsePipes(new ValidationPipe({ transform: true }))
-  update(@Param('id') id: string, @Body() updateNoteDto: UpdateNoteDto) {
-    return this.noteService.update(+id, updateNoteDto);
+  update(@Param('id') id: number, @Body() updateNoteDto: UpdateNoteDto) {
+    return this.noteService.update(id, updateNoteDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.noteService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.noteService.remove(id);
   }
 }

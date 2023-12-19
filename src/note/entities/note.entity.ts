@@ -1,20 +1,24 @@
-import { Check, Entity, PrimaryKey, Property } from '@mikro-orm/core';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ tableName: 'note' })
+@Entity({ name: 'note' })
 export class Note {
-  @PrimaryKey()
+  @PrimaryGeneratedColumn()
   id!: number;
 
-  @Property({ length: 50 })
-  @Check({ expression: 'short >= 3' })
+  @Column({ length: 50 })
   short!: string;
 
-  @Property({ length: 200, nullable: true })
-  @Check({ expression: 'message >= 3' })
+  @Column({ length: 200, nullable: true })
   message: string;
 
-  @Property({ columnType: 'timestamp', defaultRaw: `current_timestamp` })
+  @Column({ default: () => 'CURRENT_TIMESTAMP', type: 'timestamp' })
   created_at?: Date;
+
+  // pins: number[];
+  // @AfterLoad()
+  // afterLoad() {
+  //   this.pins = [1, 2, 3];
+  // }
 
   constructor(short: string, message: string) {
     this.short = short;

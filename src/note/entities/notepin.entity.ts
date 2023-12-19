@@ -1,22 +1,20 @@
-import { Entity, PrimaryKeyType, Property } from '@mikro-orm/core';
-import { Note } from './note.entity';
-import { Pin } from './pin.entity';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity({ tableName: 'notepin' })
+@Entity({ name: 'notepin' })
 export class Notepin {
-  @Property({ primary: true, fieldName: 'note_id' })
-  note: Note;
+  @Column({ nullable: false })
+  @PrimaryColumn()
+  note_id: number;
 
-  @Property({ primary: true, fieldName: 'pin_id' })
-  pin: Pin;
+  @Column({ nullable: false })
+  @PrimaryColumn()
+  pin_id: number;
 
-  @Property({ columnType: 'timestamp', defaultRaw: `current_timestamp` })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
-  [PrimaryKeyType]: [number, number];
-
-  constructor(order: Note, product: Pin) {
-    this.note = order;
-    this.pin = product;
+  constructor(order: number, product: number) {
+    this.note_id = order;
+    this.pin_id = product;
   }
 }
