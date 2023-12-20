@@ -1,5 +1,6 @@
 ## App
-App for own notes in calendar
+App for own notes in calendar, single user app BE API
+- no tests in a while
 
 ## Installation
 
