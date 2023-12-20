@@ -23,7 +23,7 @@ CREATE TABLE note (
     created_at timestamp WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE pin (
+CREATE TABLE tag (
     id BIGSERIAL PRIMARY KEY,
     short VARCHAR(50) NOT NULL,
     color VARCHAR(20),
@@ -31,13 +31,13 @@ CREATE TABLE pin (
     created_at timestamp WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE notepin (
+CREATE TABLE notetag (
     note_id BIGINT NOT NULL,
-    pin_id BIGINT NOT NULL,
+    tag_id BIGINT NOT NULL,
     created_at timestamp WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_notepin_note FOREIGN KEY(note_id) REFERENCES note(id) ON DELETE RESTRICT,
-    CONSTRAINT fk_notepin_pin FOREIGN KEY(pin_id) REFERENCES pin(id) ON DELETE RESTRICT,
-    PRIMARY KEY (note_id, pin_id)
+    CONSTRAINT fk_notetag_note FOREIGN KEY(note_id) REFERENCES note(id) ON DELETE RESTRICT,
+    CONSTRAINT fk_notetag_tag FOREIGN KEY(tag_id) REFERENCES tag(id) ON DELETE RESTRICT,
+    PRIMARY KEY (note_id, tag_id)
 );
 
 -- -- --
@@ -45,20 +45,20 @@ CREATE TABLE notepin (
 -- -- --
 
 INSERT INTO note(short) VALUES
-('first event'), -- 1
+('first event'),  -- 1
 ('second event'), -- 2
-('third event'); -- 3
+('third event');  -- 3
 
-INSERT INTO pin(short) VALUES
-('1.first'), -- 1
+INSERT INTO tag(short) VALUES
+('1.first'),     -- 1
 ('interesting'), -- 2
-('birthday'), -- 3
-('game'), -- 4
-('2.event'), -- 5
-('3.event'), -- 6
-('sad'); -- 7
+('birthday'),    -- 3
+('game'),        -- 4
+('2.event'),     -- 5
+('3.event'),     -- 6
+('sad');         -- 7
 
-INSERT INTO notepin(note_id, pin_id) VALUES
+INSERT INTO notetag(note_id, tag_id) VALUES
 (1, 1),
 (1, 2),
 (1, 3),

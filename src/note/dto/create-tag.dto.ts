@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, Length } from 'class-validator';
 
-export class CreatePinDto {
+export class CreateTagDto {
   @IsNotEmpty()
   @Length(3, 50)
   short: string;

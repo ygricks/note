@@ -1,20 +1,20 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@Entity({ name: 'notepin' })
-export class Notepin {
+@Entity({ name: 'notetag' })
+export class Notetag {
   @Column({ nullable: false })
   @PrimaryColumn()
   note_id: number;
 
   @Column({ nullable: false })
   @PrimaryColumn()
-  pin_id: number;
+  tag_id: number;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
   constructor(order: number, product: number) {
     this.note_id = order;
-    this.pin_id = product;
+    this.tag_id = product;
   }
 }

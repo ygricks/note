@@ -5,13 +5,13 @@ import { NoteModule } from './note/note.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import databaseConfig from './config/database.config';
-import { PinModule } from './note/pin.module';
+import { TagModule } from './note/tag.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
     NoteModule,
-    PinModule,
+    TagModule,
     ConfigModule.forRoot({
       load: [configuration, databaseConfig],
     }),

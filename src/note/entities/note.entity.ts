@@ -14,10 +14,10 @@ export class Note {
   @Column({ default: () => 'CURRENT_TIMESTAMP', type: 'timestamp' })
   created_at?: Date;
 
-  // pins: number[];
+  // tags: number[];
   // @AfterLoad()
   // afterLoad() {
-  //   this.pins = [1, 2, 3];
+  //   this.tags = [1, 2, 3];
   // }
 
   constructor(short: string, message: string) {
