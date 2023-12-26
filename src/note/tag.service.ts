@@ -35,7 +35,10 @@ export class TagService {
   async update(id: number, tagData: UpdateTagDto) {
     await this.findOne(id);
     const update = await this.TagRepository.update({ id }, tagData);
-    return { updated: update.affected ? true : false };
+    if (!update.affected) {
+      throw new HttpException(`Tag not updated`, HttpStatus.FORBIDDEN);
+    }
+    return this.findOne(id);
   }
 
   async remove(id: number) {

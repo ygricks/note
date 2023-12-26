@@ -33,7 +33,10 @@ export class NoteService {
   async update(id: number, updateNoteDto: UpdateNoteDto) {
     await this.findOne(id);
     const update = await this.noteRepository.update({ id }, updateNoteDto);
-    return { updated: update.affected ? true : false };
+    if (!update.affected) {
+      throw new HttpException(`Note not updated`, HttpStatus.FORBIDDEN);
+    }
+    return this.findOne(id);
   }
 
   async remove(id: number) {
