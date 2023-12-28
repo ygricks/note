@@ -53,6 +53,9 @@ export class TagService {
       );
     }
     const remove = await this.TagRepository.delete(id);
-    return { removed: remove.affected ? true : false };
+    if (!remove.affected) {
+      throw new HttpException(`Note not removed`, HttpStatus.FORBIDDEN);
+    }
+    return { removed: true };
   }
 }
