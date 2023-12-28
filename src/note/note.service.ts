@@ -39,9 +39,12 @@ export class NoteService {
     return this.findOne(id);
   }
 
-  async remove(id: number) {
+  async delete(id: number) {
     await this.findOne(id);
-    const remove = await this.noteRepository.delete(id);
-    return { removed: remove.affected ? true : false };
+    const remove = await this.noteRepository.delete({ id });
+    if (!remove.affected) {
+      throw new HttpException(`Note not deleted`, HttpStatus.FORBIDDEN);
+    }
+    return { deleted: true };
   }
 }

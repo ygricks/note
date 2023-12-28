@@ -40,6 +40,6 @@ export class NoteController {
 
   @Delete(':id')
   remove(@Param('id') id: number) {
-    return this.noteService.remove(id);
+    return this.noteService.delete(id);
   }
 }
