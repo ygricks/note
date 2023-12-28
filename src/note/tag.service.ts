@@ -41,7 +41,7 @@ export class TagService {
     return this.findOne(id);
   }
 
-  async remove(id: number) {
+  async delete(id: number) {
     await this.findOne(id);
     const relation = await this.notetagRepository.find({
       where: { tag_id: id },
@@ -52,10 +52,10 @@ export class TagService {
         HttpStatus.CONFLICT,
       );
     }
-    const remove = await this.TagRepository.delete(id);
+    const remove = await this.TagRepository.delete({ id });
     if (!remove.affected) {
-      throw new HttpException(`Note not removed`, HttpStatus.FORBIDDEN);
+      throw new HttpException(`Tag not deleted`, HttpStatus.FORBIDDEN);
     }
-    return { removed: true };
+    return { deleted: true };
   }
 }
