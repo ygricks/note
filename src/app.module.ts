@@ -7,11 +7,13 @@ import configuration from './config/configuration';
 import databaseConfig from './config/database.config';
 import { TagModule } from './note/tag.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { NotetagModule } from './note/notetag.module';
 
 @Module({
   imports: [
     NoteModule,
     TagModule,
+    NotetagModule,
     ConfigModule.forRoot({
       load: [configuration, databaseConfig],
     }),

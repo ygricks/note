@@ -1,9 +1,7 @@
 import {
   Controller,
-  Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UsePipes,
@@ -12,26 +10,15 @@ import {
 import { NotetagDto } from './dto/notetag.dto';
 import { NotetagService } from './notetag.service';
 
-@Controller('note')
+@Controller('notetag')
 export class NoteTagController {
   constructor(private readonly notetagService: NotetagService) {}
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
-  create(@Body() NotetagDto: NotetagDto) {
-    return this.notetagService.create(NotetagDto);
+  async create(@Body() notetag: NotetagDto) {
+    return this.notetagService.create(notetag);
   }
-
-  // @Delete(':note_id/:tag_id')
-  // remove_old(
-  //   @Param('note_id') note_id: number,
-  //   @Param('tag_id') tag_id: number,
-  // ) {
-  //   return this.notetagService.remove({
-  //     note_id,
-  //     tag_id,
-  //   });
-  // }
 
   @Delete(':note_id/:tag_id')
   remove(@Param() notetagDto: NotetagDto) {
