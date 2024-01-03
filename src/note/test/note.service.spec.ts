@@ -4,7 +4,7 @@ import { createMock } from '@golevelup/ts-jest';
 import { Repository, UpdateResult } from 'typeorm';
 import { Note } from '../entities';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { createNote, noteMock } from './__mock__/note';
+import { createNoteMock, noteMock } from './__mock__/note';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 describe('NoteService', () => {
@@ -38,17 +38,17 @@ describe('NoteService', () => {
   describe('should call methods', () => {
     const id = noteMock.id;
 
-    it('shold create Note', () => {
-      service.create(createNote);
-      expect(repository.save).toBeCalledWith(createNote);
+    it('should create Note', () => {
+      service.create(createNoteMock);
+      expect(repository.save).toBeCalledWith(createNoteMock);
     });
 
-    it('shold get one Note with success', () => {
+    it('should get one Note with success', () => {
       service.findOne(id);
       expect(repository.findOne).toBeCalledWith({ where: { id } });
     });
 
-    it('shold call findOne Note with reject', async () => {
+    it('should call findOne Note with reject', async () => {
       jest.spyOn(repository, 'findOne').mockResolvedValue(null);
       const error = new HttpException(`Note not found`, HttpStatus.NOT_FOUND);
       await service.findOne(id).catch((e) => {
@@ -58,14 +58,14 @@ describe('NoteService', () => {
       });
     });
 
-    it('shold get all Note', () => {
+    it('should get all Note', () => {
       service.findAll();
       expect(repository.find).toBeCalled();
     });
 
-    it('shold update the Note with success', async () => {
+    it('should update the Note with success', async () => {
       jest.spyOn(repository, 'findOne').mockResolvedValue(noteMock);
-      await service.update(id, createNote);
+      await service.update(id, createNoteMock);
       expect(repository.update).toBeCalled();
       expect(repository.findOne).toBeCalledTimes(2);
     });
@@ -73,7 +73,7 @@ describe('NoteService', () => {
     it('should update the Note with error', async () => {
       jest.spyOn(repository, 'findOne').mockResolvedValue(null);
       const error = new HttpException(`Note not found`, HttpStatus.NOT_FOUND);
-      await service.update(id, createNote).catch((e) => {
+      await service.update(id, createNoteMock).catch((e) => {
         expect(e.getStatus()).toEqual(error.getStatus());
         expect(e.message).toEqual(error.message);
         expect(e).toBeInstanceOf(HttpException);
@@ -87,7 +87,7 @@ describe('NoteService', () => {
         .spyOn(repository, 'update')
         .mockResolvedValue({ affected: 0 } as UpdateResult);
       const error = new HttpException(`Note not updated`, HttpStatus.FORBIDDEN);
-      await service.update(id, createNote).catch((e) => {
+      await service.update(id, createNoteMock).catch((e) => {
         expect(e.getStatus()).toEqual(error.getStatus());
         expect(e.message).toEqual(error.message);
         expect(e).toBeInstanceOf(HttpException);

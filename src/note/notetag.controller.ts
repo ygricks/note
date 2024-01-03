@@ -22,7 +22,7 @@ export class NoteTagController {
 
   @Delete(':note_id/:tag_id')
   remove(@Param() notetagDto: NotetagDto) {
-    return this.notetagService.remove({
+    return this.notetagService.delete({
       note_id: notetagDto.note_id,
       tag_id: notetagDto.tag_id,
     });

@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { NoteController } from '../note.controller';
 import { NoteService } from '../note.service';
 import { createMock } from '@golevelup/ts-jest';
-import { createNote, noteMock } from './__mock__/note';
+import { createNoteMock, noteMock } from './__mock__/note';
 
 describe('NoteController', () => {
   let controller: NoteController;
@@ -30,13 +30,13 @@ describe('NoteController', () => {
 
   describe('mothods', () => {
     it('should call service create', () => {
-      controller.create(createNote);
-      expect(mockNoteService.create).toBeCalledWith(createNote);
+      controller.create(createNoteMock);
+      expect(mockNoteService.create).toBeCalledWith(createNoteMock);
     });
 
     it('should call service update', () => {
-      controller.update(id, createNote);
-      expect(mockNoteService.update).toBeCalledWith(id, createNote);
+      controller.update(id, createNoteMock);
+      expect(mockNoteService.update).toBeCalledWith(id, createNoteMock);
     });
 
     it('should call service get', () => {

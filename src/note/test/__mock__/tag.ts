@@ -6,7 +6,7 @@ export const createTag: CreateTagDto = {
 };
 
 export const tagMock: Tag = {
-  id: 12390,
+  id: 998877,
   short: 'something',
   color: 'blue',
   message: null,

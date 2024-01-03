@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { Note, Notetag, Tag } from './entities';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -25,18 +25,24 @@ export class NotetagService {
     const tag = await this.tagRepository.findOne({
       where: { id: notetagDto.tag_id },
     });
-    console.log({ note, tag });
-    // return this.notetagRepository.save({
-    //   note_id: note.id,
-    //   tag_id: tag.id,
-    // });
+    if (!note || !tag) {
+      const entity = !note && !tag ? 'Note & Tag' : !note ? 'Note' : 'Tag';
+      throw new HttpException(`${entity} not found`, HttpStatus.NOT_FOUND);
+    }
+    return this.notetagRepository.save({
+      note_id: note.id,
+      tag_id: tag.id,
+    });
   }
 
-  async remove(notetagDto: NotetagDto) {
+  async delete(notetagDto: NotetagDto) {
     const remove = await this.notetagRepository.delete({
       note_id: notetagDto.note_id,
       tag_id: notetagDto.tag_id,
     });
-    return { removed: remove.affected ? true : false };
+    if (!remove.affected) {
+      throw new HttpException(`Notetag not deleted`, HttpStatus.FORBIDDEN);
+    }
+    return { deleted: true };
   }
 }

@@ -44,17 +44,17 @@ describe('TagService', () => {
   describe('should call methods', () => {
     const id = tagMock.id;
 
-    it('shold create Tag', () => {
+    it('should create Tag', () => {
       service.create(createTag);
       expect(repository.save).toBeCalledWith(createTag);
     });
 
-    it('shold get one Tag with success', () => {
+    it('should get one Tag with success', () => {
       service.findOne(id);
       expect(repository.findOne).toBeCalledWith({ where: { id } });
     });
 
-    it('shold call findOne Tag with reject', async () => {
+    it('should call findOne Tag with reject', async () => {
       jest.spyOn(repository, 'findOne').mockResolvedValue(null);
       const error = new HttpException(`Tag not found`, HttpStatus.NOT_FOUND);
       await service.findOne(id).catch((e) => {
@@ -64,12 +64,12 @@ describe('TagService', () => {
       });
     });
 
-    it('shold get all Tag', () => {
+    it('should get all Tag', () => {
       service.findAll();
       expect(repository.find).toBeCalled();
     });
 
-    it('shold update the Tag with success', async () => {
+    it('should update the Tag with success', async () => {
       jest.spyOn(repository, 'findOne').mockResolvedValue(tagMock);
       await service.update(id, createTag);
       expect(repository.update).toBeCalled();
