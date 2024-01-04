@@ -12,6 +12,7 @@ import {
 import { NoteService } from './note.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
+import { BetweenDate } from './types';
 
 @Controller('note')
 export class NoteController {
@@ -31,6 +32,15 @@ export class NoteController {
   @Get(':id')
   async findOne(@Param('id') id: number) {
     return await this.noteService.findOne(id);
+  }
+
+  @Get('between/:from/:to')
+  async findBetween(@Param('from') _from: Date, @Param('to') _to: Date) {
+    const between: BetweenDate = {
+      from: new Date(_from),
+      to: new Date(_to),
+    };
+    return this.noteService.findBetween(between);
   }
 
   @Patch(':id')
