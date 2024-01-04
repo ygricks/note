@@ -25,7 +25,7 @@ export class NoteService {
 
   async findBetween(between: Between) {
     const noteData = await this.noteRepository.manager.query(
-      'SELECT tn.* FROM note AS tn WHERE tn.created_at >= $1::timestamp AND tn.created_at <= $2::timestamp ORDER BY tn.id ',
+      `SELECT tn.*, array_to_string(array_agg(tnt.tag_id), ',') AS tags FROM note AS tn LEFT JOIN notetag AS tnt ON tnt.note_id=tn.id WHERE tn.created_at >= $1::timestamp AND tn.created_at <= $2::timestamp GROUP BY tn.id, tn.short, tn.message, tn.created_at ORDER BY tn.id `,
       [between.from, between.to],
     );
     return noteData;
